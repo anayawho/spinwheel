@@ -1,171 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Spin the Wheel – PR Giveaway</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pandora PR Spin Wheel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-font-family: 'Poppins', sans-serif;
-background: linear-gradient(135deg, #f9c5d1, #fce4ec);
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-margin: 0;
+:root{
+--pink:#f3b6cc;
+--soft:#fff6fa;
+--silver:#d9d9e3;
+--deep:#5a2b44;
 }
 
-.container {
-text-align: center;
-background: #fff;
-padding: 25px;
-border-radius: 20px;
-box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-max-width: 380px;
-width: 90%;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:linear-gradient(180deg,#fff7fb 0%,#ffffff 45%,#fdf2f7 100%);
+color:#4a2035;
+text-align:center;
+overflow-x:hidden;
 }
 
-h1 {
-color: #d81b60;
-font-size: 22px;
-margin-bottom: 10px;
+/* HEADER */
+header{
+padding:70px 18px 30px;
 }
 
-p {
-font-size: 13px;
-color: #777;
+header h1{
+font-family:'Playfair Display',serif;
+font-size:clamp(2.2rem,6vw,3.5rem);
+margin-bottom:12px;
 }
 
-canvas {
-margin: 20px 0;
+header p{
+font-size:1rem;
+color:#8a4b68;
 }
 
-button {
-background: #d81b60;
-color: white;
-border: none;
-padding: 12px 25px;
-border-radius: 30px;
-font-size: 16px;
-cursor: pointer;
-transition: 0.3s;
+/* WHEEL AREA */
+.wheel-container{
+margin:40px auto;
+position:relative;
+width:280px;
+height:280px;
 }
 
-button:hover {
-background: #ad1457;
+#wheel{
+width:100%;
+height:100%;
+border-radius:50%;
+border:10px solid var(--silver);
+background:conic-gradient(
+#f8c6d9 0deg 72deg,
+#f1b2cb 72deg 144deg,
+#fbd6e6 144deg 216deg,
+#f1b2cb 216deg 288deg,
+#f8c6d9 288deg 360deg
+);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:transform 4s cubic-bezier(.17,.67,.3,1);
 }
 
-.result {
-margin-top: 15px;
-font-size: 16px;
-color: #d81b60;
-font-weight: 600;
+.wheel-labels{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-.apply {
-margin-top: 10px;
-display: none;
+.wheel-labels span{
+position:absolute;
+font-size:.85rem;
+font-weight:500;
+color:#5a2b44;
+transform-origin:50% 130px;
 }
 
-.apply a {
-color: white;
-text-decoration: none;
+.pointer{
+position:absolute;
+top:-18px;
+left:50%;
+transform:translateX(-50%);
+width:0;
+height:0;
+border-left:12px solid transparent;
+border-right:12px solid transparent;
+border-bottom:20px solid #c05a8c;
 }
 
-.disclaimer {
-font-size: 10px;
-color: #999;
-margin-top: 12px;
+/* BUTTON */
+.spin-btn{
+margin-top:30px;
+padding:14px 42px;
+border:none;
+border-radius:999px;
+background:linear-gradient(90deg,#ff8fc2,#f3b6cc);
+color:white;
+font-size:1rem;
+font-weight:500;
+cursor:pointer;
+box-shadow:0 14px 35px rgba(255,143,194,.45);
+}
+
+.spin-btn:disabled{
+opacity:.6;
+cursor:not-allowed;
+}
+
+/* RESULT */
+.result{
+margin-top:26px;
+font-size:1.1rem;
+font-weight:500;
+min-height:28px;
+}
+
+/* STEPS */
+.steps{
+max-width:700px;
+margin:60px auto;
+font-size:.95rem;
+}
+
+.steps strong{
+display:block;
+margin-bottom:12px;
+}
+
+.steps div{
+margin-bottom:6px;
+}
+
+/* FOOTER */
+footer{
+padding:50px 16px 70px;
+font-size:.85rem;
+color:#8a4b68;
 }
 </style>
 </head>
 
 <body>
-<div class="container">
-<h1>Spin the Wheel ✨</h1>
-<p>See which PR gift you could receive</p>
 
-<canvas id="wheel" width="300" height="300"></canvas>
+<header>
+<h1>Pandora PR Selection</h1>
+<p>Spin the wheel to see which Pandora item you’re eligible to receive</p>
+</header>
 
-<button onclick="spin()">SPIN</button>
+<div class="wheel-container">
+<div class="pointer"></div>
+<div id="wheel">
+<div class="wheel-labels">
+<span style="transform:rotate(0deg)">Charm</span>
+<span style="transform:rotate(72deg)">Bracelet</span>
+<span style="transform:rotate(144deg)">Ring</span>
+<span style="transform:rotate(216deg)">Necklace</span>
+<span style="transform:rotate(288deg)">Charm Set</span>
+</div>
+</div>
+</div>
+
+<button class="spin-btn" onclick="spin()">Spin the Wheel</button>
 
 <div class="result" id="result"></div>
 
-<div class="apply" id="apply">
-<button style="margin-top:10px;">
-<a href="https://YOUR-PR-APPLICATION-LINK.com">Apply for PR</a>
-</button>
+<div class="steps">
+<strong>Complete the steps below to be approved:</strong>
+<div>1. Answer a few short questions</div>
+<div>2. Enter email & basic information</div>
+<div>3. Complete recommended deals</div>
 </div>
 
-<div class="disclaimer">
-This is a promotional giveaway. Not officially affiliated with Pandora.
-</div>
-</div>
+<footer>
+SSL Secured • Encrypted • Verified<br>
+© 2025 Pandora PR Program
+</footer>
 
 <script>
-const canvas = document.getElementById("wheel");
-const ctx = canvas.getContext("2d");
-
-const items = [
-"Bracelet",
-"Ring",
-"Necklace",
-"Charms",
-"Full PR Box"
+let spinning=false;
+const prizes=[
+"Pandora Charm",
+"Pandora Bracelet",
+"Pandora Ring",
+"Pandora Necklace",
+"Pandora Charm Set"
 ];
 
-const colors = [
-"#f8bbd0",
-"#f48fb1",
-"#f06292",
-"#ec407a",
-"#d81b60"
-];
+function spin(){
+if(spinning) return;
+spinning=true;
 
-let startAngle = 0;
-const arc = (2 * Math.PI) / items.length;
+const wheel=document.getElementById("wheel");
+const result=document.getElementById("result");
 
-function drawWheel() {
-for (let i = 0; i < items.length; i++) {
-const angle = startAngle + i * arc;
-ctx.fillStyle = colors[i];
-ctx.beginPath();
-ctx.moveTo(150,150);
-ctx.arc(150,150,150,angle,angle+arc);
-ctx.fill();
+const spins=5;
+const index=Math.floor(Math.random()*prizes.length);
+const angle=360*spins + index*(360/prizes.length);
 
-ctx.save();
-ctx.translate(150,150);
-ctx.rotate(angle + arc / 2);
-ctx.fillStyle = "#fff";
-ctx.font = "bold 14px Poppins";
-ctx.fillText(items[i], 40, 5);
-ctx.restore();
-}
-}
+wheel.style.transform=`rotate(${angle}deg)`;
 
-drawWheel();
-
-function spin() {
-const spinAngle = Math.random() * 3000 + 2000;
-let angle = 0;
-
-const spinInterval = setInterval(() => {
-angle += 30;
-startAngle += (spinAngle * Math.PI / 180) / 100;
-ctx.clearRect(0,0,300,300);
-drawWheel();
-
-if (angle >= spinAngle) {
-clearInterval(spinInterval);
-const index = Math.floor(((2 * Math.PI - startAngle % (2 * Math.PI)) / arc)) % items.length;
-document.getElementById("result").innerText =
-"You landed on: " + items[index];
-document.getElementById("apply").style.display = "block";
-}
-}, 20);
+setTimeout(()=>{
+result.textContent="You landed on: " + prizes[index];
+spinning=false;
+},4000);
 }
 </script>
+
 </body>
 </html>
