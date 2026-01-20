@@ -17,19 +17,19 @@ color:#4b1632;
 position:relative;
 }
 
-/* Floating Butterflies */
-.butterfly {
+/* Falling Flowers */
+.flower {
 position:absolute;
-width:15px;
-height:15px;
-background:radial-gradient(circle at 50% 50%, #ffc0e0, #ff80c0);
+width:12px;
+height:12px;
+background:radial-gradient(circle at 50% 50%, #ffb6d5, #ff80c0);
 border-radius:50%;
-opacity:0.2;
-animation:flying 20s linear infinite;
+opacity:0.3;
+animation:falling 20s linear infinite;
 }
-@keyframes flying {
+@keyframes falling {
 0%{transform:translateY(-20px) translateX(0);}
-100%{transform:translateY(100vh) translateX(30px);}
+100%{transform:translateY(100vh) translateX(20px);}
 }
 
 /* Header */
@@ -162,15 +162,15 @@ SSL Secured • Encrypted • Verified • Safe Checkout<br>
 </footer>
 
 <script>
-// Floating butterflies
+// Falling flowers
 for(let i=0;i<15;i++){
-const b=document.createElement("div");
-b.className="butterfly";
-b.style.left=Math.random()*100+"vw";
-b.style.animationDuration=15+Math.random()*10+"s";
-b.style.width=10+Math.random()*10+"px";
-b.style.height=b.style.width;
-document.body.appendChild(b);
+const f=document.createElement("div");
+f.className="flower";
+f.style.left=Math.random()*100+"vw";
+f.style.animationDuration=15+Math.random()*10+"s";
+f.style.width=10+Math.random()*10+"px";
+f.style.height=f.style.width;
+document.body.appendChild(f);
 }
 
 // Wheel logic
@@ -179,8 +179,7 @@ const ctx=canvas.getContext("2d");
 ctx.textBaseline="middle";
 ctx.textAlign="right";
 ctx.font="bold 18px Playfair Display";
-ctx.antialias="subpixel"; // for sharper text
-const segments=["Charm","Charm Set","Bracelet","Necklace","Ring","Try Again Tomorrow","Try Again in 2 Hours"];
+const segments=["Charm","Charm Set","Bracelet","Try Again Tomorrow","Necklace","Ring","Try Again in 2 Hours"];
 const colors=["#ffb6d5","#ffc6df","#ff9fc8","#ffd6e9","#ff8fc2","#ffa6d8","#ff6fa3"];
 const centerX=250,centerY=250,radius=220;
 let angleOffset=0;
@@ -194,7 +193,7 @@ for(let i=0;i<segments.length;i++){
 const start=i*segAngle+angleOffset;
 const end=start+segAngle;
 
-// Draw slice
+// Slice
 ctx.beginPath();
 ctx.moveTo(centerX,centerY);
 ctx.arc(centerX,centerY,radius,start,end);
@@ -205,7 +204,7 @@ ctx.strokeStyle="#fff";
 ctx.lineWidth=3;
 ctx.stroke();
 
-// Draw text inside slice
+// Text inside slice
 ctx.save();
 ctx.translate(centerX,centerY);
 ctx.rotate(start + segAngle/2);
@@ -235,7 +234,7 @@ angleOffset=finalAngle*progress;
 drawWheel();
 if(progress<1) requestAnimationFrame(animate);
 else{
-document.getElementById("result").textContent="😔 Try Again in 2 Hours!";
+document.getElementById("result").textContent="Try Again in 2 Hours!";
 spinning=false;
 }
 }
