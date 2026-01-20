@@ -3,122 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pandora PR Selection</title>
+<title>Pandora PR Spin</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
---pink:#f3b6cc;
---soft:#fff6fa;
---silver:#dcdce6;
---deep:#5a2b44;
-}
-
 body{
-margin:0;
-font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#fff7fb,#ffffff,#fdf2f7);
-color:#4a2035;
-text-align:center;
+ margin:0;
+ font-family:'Inter',sans-serif;
+ background:linear-gradient(180deg,#fff6fa,#ffffff,#fdf1f7);
+ color:#4a2035;
+ text-align:center;
 }
 
 header{
-padding:70px 20px 20px;
+ padding:70px 20px 20px;
 }
 
 header h1{
-font-family:'Playfair Display',serif;
-font-size:3rem;
+ font-family:'Playfair Display',serif;
+ font-size:3rem;
 }
 
-header p{
-color:#8a4b68;
-}
+header p{color:#8a4b68}
 
 /* WHEEL */
-.wheel-wrapper{
-position:relative;
-width:300px;
-height:300px;
-margin:40px auto;
+.wheel-wrap{
+ width:320px;
+ height:320px;
+ margin:50px auto;
+ position:relative;
 }
 
 #wheel{
-width:100%;
-height:100%;
-border-radius:50%;
-border:10px solid var(--silver);
-background:conic-gradient(
-#f8c6d9 0deg 72deg,
-#f1b2cb 72deg 144deg,
-#fde0eb 144deg 216deg,
-#f1b2cb 216deg 288deg,
-#f8c6d9 288deg 360deg
-);
-transition:transform 4s cubic-bezier(.17,.67,.3,1);
-position:relative;
+ width:100%;
+ height:100%;
+ border-radius:50%;
+ border:10px solid #dedee8;
+ background:conic-gradient(
+ #f6c4d8 0deg 72deg,
+ #f1b2cb 72deg 144deg,
+ #fde0eb 144deg 216deg,
+ #f1b2cb 216deg 288deg,
+ #f6c4d8 288deg 360deg
+ );
+ transition:transform 4s cubic-bezier(.17,.67,.3,1);
+ position:relative;
 }
 
-.segment{
-position:absolute;
-width:50%;
-height:50%;
-top:25%;
-left:25%;
-transform-origin:0% 100%;
+/* ICON POSITIONS */
+.icon{
+ position:absolute;
+ width:42px;
+ height:42px;
+ fill:#6a2e4d;
 }
 
-.segment svg{
-width:40px;
-opacity:.9;
-}
+.icon1{top:20px;left:50%;transform:translateX(-50%)}
+.icon2{right:30px;top:90px}
+.icon3{right:60px;bottom:60px}
+.icon4{left:60px;bottom:60px}
+.icon5{left:30px;top:90px}
 
 /* POINTER */
 .pointer{
-position:absolute;
-top:-18px;
-left:50%;
-transform:translateX(-50%);
-width:0;height:0;
-border-left:12px solid transparent;
-border-right:12px solid transparent;
-border-bottom:20px solid #c05a8c;
+ position:absolute;
+ top:-18px;
+ left:50%;
+ transform:translateX(-50%);
+ width:0;height:0;
+ border-left:12px solid transparent;
+ border-right:12px solid transparent;
+ border-bottom:20px solid #c05a8c;
 }
 
 /* BUTTON */
 button{
-padding:14px 44px;
-border:none;
-border-radius:999px;
-background:linear-gradient(90deg,#ff8fc2,#f3b6cc);
-color:white;
-font-size:1rem;
-cursor:pointer;
-box-shadow:0 14px 35px rgba(255,143,194,.45);
+ padding:14px 44px;
+ border:none;
+ border-radius:999px;
+ background:linear-gradient(90deg,#ff8fc2,#f3b6cc);
+ color:white;
+ font-size:1rem;
+ cursor:pointer;
+ box-shadow:0 14px 35px rgba(255,143,194,.45);
 }
 
 /* RESULT */
 #result{
-margin-top:24px;
-font-size:1.1rem;
+ margin-top:22px;
+ font-size:1.1rem;
 }
 
 /* STEPS */
 .steps{
-max-width:700px;
-margin:60px auto;
+ max-width:700px;
+ margin:60px auto;
+ font-size:.95rem;
 }
 
-.steps strong{
-display:block;
-margin-bottom:10px;
-}
+.steps strong{display:block;margin-bottom:10px}
 
 footer{
-padding:50px 20px;
-font-size:.85rem;
-color:#8a4b68;
+ padding:50px 20px;
+ font-size:.85rem;
+ color:#8a4b68;
 }
 </style>
 </head>
@@ -126,57 +115,89 @@ color:#8a4b68;
 <body>
 
 <header>
-<h1>Pandora PR Selection</h1>
-<p>Spin to reveal which Pandora piece you qualify for</p>
+ <h1>Pandora PR Selection</h1>
+ <p>Spin the wheel to reveal your Pandora gift</p>
 </header>
 
-<div class="wheel-wrapper">
-<div class="pointer"></div>
-<div id="wheel"></div>
+<div class="wheel-wrap">
+ <div class="pointer"></div>
+
+ <div id="wheel">
+
+ <!-- Charm -->
+ <svg class="icon icon1" viewBox="0 0 24 24">
+ <circle cx="12" cy="12" r="8" stroke="#6a2e4d" stroke-width="2" fill="none"/>
+ <circle cx="12" cy="5" r="2"/>
+ </svg>
+
+ <!-- Bracelet -->
+ <svg class="icon icon2" viewBox="0 0 24 24">
+ <circle cx="12" cy="12" r="9" stroke="#6a2e4d" stroke-width="2" fill="none"/>
+ </svg>
+
+ <!-- Ring -->
+ <svg class="icon icon3" viewBox="0 0 24 24">
+ <circle cx="12" cy="14" r="6" stroke="#6a2e4d" stroke-width="2" fill="none"/>
+ <polygon points="12,2 15,6 9,6"/>
+ </svg>
+
+ <!-- Necklace -->
+ <svg class="icon icon4" viewBox="0 0 24 24">
+ <path d="M4 4c2 10 14 10 16 0" stroke="#6a2e4d" stroke-width="2" fill="none"/>
+ <circle cx="12" cy="14" r="3"/>
+ </svg>
+
+ <!-- Charm Set -->
+ <svg class="icon icon5" viewBox="0 0 24 24">
+ <circle cx="8" cy="12" r="4"/>
+ <circle cx="16" cy="12" r="4"/>
+ </svg>
+
+ </div>
 </div>
 
 <button onclick="spin()">Spin the Wheel</button>
 <div id="result"></div>
 
 <div class="steps">
-<strong>Complete the steps below to be approved:</strong>
-<div>1. Answer a few short questions</div>
-<div>2. Enter email & basic information</div>
-<div>3. Complete recommended deals</div>
+ <strong>Complete the steps below to be approved:</strong>
+ <div>1. Answer a few short questions</div>
+ <div>2. Enter email & basic information</div>
+ <div>3. Complete recommended deals</div>
 </div>
 
 <footer>
-SSL Secured • Encrypted • Verified<br>
-© 2025 Pandora PR Program
+ SSL Secured • Encrypted • Verified<br>
+ © 2025 Pandora PR Program
 </footer>
 
 <script>
 const prizes=[
-"Pandora Charm",
-"Pandora Bracelet",
-"Pandora Ring",
-"Pandora Necklace",
-"Pandora Charm Set"
+ "Pandora Charm",
+ "Pandora Bracelet",
+ "Pandora Ring",
+ "Pandora Necklace",
+ "Pandora Charm Set"
 ];
 
 let spinning=false;
 
 function spin(){
-if(spinning) return;
-spinning=true;
+ if(spinning) return;
+ spinning=true;
 
-const wheel=document.getElementById("wheel");
-const result=document.getElementById("result");
+ const wheel=document.getElementById("wheel");
+ const result=document.getElementById("result");
 
-const index=Math.floor(Math.random()*prizes.length);
-const angle=360*5 + index*(360/prizes.length);
+ const index=Math.floor(Math.random()*prizes.length);
+ const angle=360*5 + index*(360/prizes.length);
 
-wheel.style.transform=`rotate(${angle}deg)`;
+ wheel.style.transform=`rotate(${angle}deg)`;
 
-setTimeout(()=>{
-result.textContent="You landed on: "+prizes[index];
-spinning=false;
-},4000);
+ setTimeout(()=>{
+ result.textContent="You landed on: "+prizes[index];
+ spinning=false;
+ },4000);
 }
 </script>
 
