@@ -3,153 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pandora PR Spin</title>
+<title>Pandora Spin Wheel</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
---pink:#f3a6c8;
---rose:#d97aa6;
---silver:#f5f5f7;
-}
-
 body{
-margin:0;
-font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#fff0f6,#ffffff,#fdf2f7);
-color:#4b2035;
-text-align:center;
-overflow-x:hidden;
+ margin:0;
+ font-family:'Inter',sans-serif;
+ background:linear-gradient(180deg,#fff1f6,#ffffff,#fdeaf3);
+ color:#4a2035;
+ text-align:center;
 }
 
 /* HEADER */
 header{
-padding:70px 20px 30px;
+ padding:60px 20px 30px;
 }
-
 header h1{
-font-family:'Playfair Display',serif;
-font-size:3rem;
-margin-bottom:10px;
+ font-family:'Playfair Display',serif;
+ font-size:2.8rem;
 }
-
 header p{
-color:#8c4c6c;
-font-size:1.05rem;
+ color:#8a4b68;
 }
 
 /* WHEEL */
-.wheel-wrapper{
-position:relative;
-width:340px;
-height:340px;
-margin:50px auto;
+.wheel-container{
+ position:relative;
+ width:320px;
+ height:320px;
+ margin:40px auto;
+}
+
+.pointer{
+ position:absolute;
+ top:-16px;
+ left:50%;
+ transform:translateX(-50%);
+ width:0;height:0;
+ border-left:14px solid transparent;
+ border-right:14px solid transparent;
+ border-bottom:26px solid #c05a8c;
 }
 
 #wheel{
-width:100%;
-height:100%;
-border-radius:50%;
-background:
-radial-gradient(circle at center,#ffffff 35%,#f7d7e6 100%);
-border:10px solid rgba(255,255,255,.9);
-box-shadow:
-0 0 40px rgba(243,166,200,.45),
-inset 0 0 25px rgba(255,255,255,.8);
-position:relative;
-transition:transform 4.5s cubic-bezier(.15,.65,.25,1);
+ width:100%;
+ height:100%;
+ border-radius:50%;
+ border:8px solid #f3c6db;
+ background:
+ conic-gradient(
+ #f9dbe8 0deg 72deg,
+ #ffffff 72deg 144deg,
+ #f9dbe8 144deg 216deg,
+ #ffffff 216deg 288deg,
+ #f9dbe8 288deg 360deg
+ );
+ transition:transform 4s cubic-bezier(.17,.67,.3,1);
+ box-shadow:0 25px 60px rgba(0,0,0,.15);
+ position:relative;
 }
 
-/* POINTER */
-.pointer{
-position:absolute;
-top:-18px;
-left:50%;
-transform:translateX(-50%);
-width:0;height:0;
-border-left:12px solid transparent;
-border-right:12px solid transparent;
-border-bottom:22px solid var(--rose);
+/* LABELS */
+.label{
+ position:absolute;
+ width:100%;
+ top:50%;
+ left:50%;
+ transform-origin:0 0;
+ font-weight:600;
+ font-size:.95rem;
+ color:#5a2740;
 }
 
-/* ICON ITEMS */
-.segment{
-position:absolute;
-width:72px;
-height:72px;
-border-radius:50%;
-background:rgba(255,255,255,.85);
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:
-0 10px 30px rgba(0,0,0,.15),
-inset 0 0 15px rgba(255,255,255,.9);
-}
-
-.segment svg{
-width:34px;
-height:34px;
-stroke:var(--rose);
-stroke-width:1.8;
-fill:none;
-}
-
-/* PERFECT CIRCLE PLACEMENT */
-.s1{top:12px;left:50%;transform:translateX(-50%)}
-.s2{right:28px;top:80px}
-.s3{right:72px;bottom:72px}
-.s4{left:72px;bottom:72px}
-.s5{left:28px;top:80px}
+.l1{transform:rotate(36deg) translate(70px,-50%)}
+.l2{transform:rotate(108deg) translate(70px,-50%)}
+.l3{transform:rotate(180deg) translate(70px,-50%)}
+.l4{transform:rotate(252deg) translate(70px,-50%)}
+.l5{transform:rotate(324deg) translate(70px,-50%)}
 
 /* BUTTON */
-.spin-btn{
-padding:15px 50px;
-border:none;
-border-radius:999px;
-background:linear-gradient(90deg,#ff9fcb,#f3a6c8);
-color:white;
-font-size:1rem;
-cursor:pointer;
-box-shadow:
-0 14px 40px rgba(243,166,200,.55);
-}
-
-.spin-btn:hover{
-transform:translateY(-1px);
+button{
+ padding:14px 42px;
+ border:none;
+ border-radius:999px;
+ background:linear-gradient(90deg,#ff8fc2,#f3a6c8);
+ color:white;
+ font-size:1rem;
+ cursor:pointer;
+ box-shadow:0 15px 35px rgba(243,166,200,.45);
 }
 
 /* RESULT */
 #result{
-margin-top:24px;
-font-size:1.15rem;
-font-weight:500;
-}
-
-/* STEPS */
-.steps{
-max-width:720px;
-margin:60px auto;
-padding:0 20px;
-}
-
-.steps strong{
-display:block;
-margin-bottom:14px;
-font-weight:600;
-}
-
-.steps div{
-margin:6px 0;
-font-size:.95rem;
+ margin-top:22px;
+ font-size:1.1rem;
+ font-weight:500;
 }
 
 /* FOOTER */
 footer{
-padding:50px 20px;
-font-size:.85rem;
-color:#8c4c6c;
+ padding:50px 20px;
+ font-size:.85rem;
+ color:#8a4b68;
 }
 </style>
 </head>
@@ -157,97 +114,57 @@ color:#8c4c6c;
 <body>
 
 <header>
-<h1>Pandora PR Selection</h1>
-<p>Spin the wheel to reveal your Pandora jewelry gift</p>
+ <h1>Pandora PR Spin</h1>
+ <p>Spin the wheel to see which Pandora jewelry you’ll receive</p>
 </header>
 
-<div class="wheel-wrapper">
-<div class="pointer"></div>
+<div class="wheel-container">
+ <div class="pointer"></div>
 
-<div id="wheel">
-<!-- Charm -->
-<div class="segment s1">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="4"/>
-<path d="M12 12v8"/>
-</svg>
-</div>
-
-<!-- Bracelet -->
-<div class="segment s2">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="8"/>
-</svg>
+ <div id="wheel">
+ <div class="label l1">Bracelet</div>
+ <div class="label l2">Necklace</div>
+ <div class="label l3">Ring</div>
+ <div class="label l4">Charm</div>
+ <div class="label l5">Charm Set</div>
+ </div>
 </div>
 
-<!-- Ring -->
-<div class="segment s3">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="14" r="6"/>
-<path d="M12 4v4"/>
-</svg>
-</div>
-
-<!-- Necklace -->
-<div class="segment s4">
-<svg viewBox="0 0 24 24">
-<path d="M4 8c2 6 14 6 16 0"/>
-<circle cx="12" cy="14" r="2"/>
-</svg>
-</div>
-
-<!-- Charm Set -->
-<div class="segment s5">
-<svg viewBox="0 0 24 24">
-<circle cx="8" cy="12" r="3"/>
-<circle cx="16" cy="12" r="3"/>
-</svg>
-</div>
-</div>
-</div>
-
-<button class="spin-btn" onclick="spin()">Spin the Wheel</button>
+<button onclick="spin()">Spin the Wheel</button>
 <div id="result"></div>
 
-<div class="steps">
-<strong>Complete the steps below to be approved:</strong>
-<div>1. Answer a few short questions</div>
-<div>2. Enter email & basic information</div>
-<div>3. Complete recommended deals</div>
-</div>
-
 <footer>
-SSL Secured • Encrypted • Verified<br>
-© 2025 Pandora PR Program
+ SSL Secured • Encrypted • Verified<br>
+ © 2025 Pandora PR Program
 </footer>
 
 <script>
 const prizes=[
-"Pandora Charm",
-"Pandora Bracelet",
-"Pandora Ring",
-"Pandora Necklace",
-"Pandora Charm Set"
+ "Bracelet",
+ "Necklace",
+ "Ring",
+ "Charm",
+ "Charm Set"
 ];
 
 let spinning=false;
 
 function spin(){
-if(spinning) return;
-spinning=true;
+ if(spinning) return;
+ spinning=true;
 
-const wheel=document.getElementById("wheel");
-const result=document.getElementById("result");
+ const wheel=document.getElementById("wheel");
+ const result=document.getElementById("result");
 
-const index=Math.floor(Math.random()*prizes.length);
-const angle=360*5 + index*(360/prizes.length);
+ const index=Math.floor(Math.random()*prizes.length);
+ const angle=360*5 + index*(360/prizes.length);
 
-wheel.style.transform=`rotate(${angle}deg)`;
+ wheel.style.transform=`rotate(${angle}deg)`;
 
-setTimeout(()=>{
-result.textContent="You won: "+prizes[index];
-spinning=false;
-},4500);
+ setTimeout(()=>{
+ result.textContent="You got: "+prizes[index];
+ spinning=false;
+ },4000);
 }
 </script>
 
