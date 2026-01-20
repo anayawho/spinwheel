@@ -3,51 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pandora PR Spin Wheel</title>
+<title>Pandora PR Selection</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
 --pink:#f3b6cc;
 --soft:#fff6fa;
---silver:#d9d9e3;
+--silver:#dcdce6;
 --deep:#5a2b44;
 }
-
-*{box-sizing:border-box}
 
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#fff7fb 0%,#ffffff 45%,#fdf2f7 100%);
+background:linear-gradient(180deg,#fff7fb,#ffffff,#fdf2f7);
 color:#4a2035;
 text-align:center;
-overflow-x:hidden;
 }
 
-/* HEADER */
 header{
-padding:70px 18px 30px;
+padding:70px 20px 20px;
 }
 
 header h1{
 font-family:'Playfair Display',serif;
-font-size:clamp(2.2rem,6vw,3.5rem);
-margin-bottom:12px;
+font-size:3rem;
 }
 
 header p{
-font-size:1rem;
 color:#8a4b68;
 }
 
-/* WHEEL AREA */
-.wheel-container{
-margin:40px auto;
+/* WHEEL */
+.wheel-wrapper{
 position:relative;
-width:280px;
-height:280px;
+width:300px;
+height:300px;
+margin:40px auto;
 }
 
 #wheel{
@@ -58,90 +52,71 @@ border:10px solid var(--silver);
 background:conic-gradient(
 #f8c6d9 0deg 72deg,
 #f1b2cb 72deg 144deg,
-#fbd6e6 144deg 216deg,
+#fde0eb 144deg 216deg,
 #f1b2cb 216deg 288deg,
 #f8c6d9 288deg 360deg
 );
-display:flex;
-align-items:center;
-justify-content:center;
 transition:transform 4s cubic-bezier(.17,.67,.3,1);
+position:relative;
 }
 
-.wheel-labels{
+.segment{
 position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
+width:50%;
+height:50%;
+top:25%;
+left:25%;
+transform-origin:0% 100%;
 }
 
-.wheel-labels span{
-position:absolute;
-font-size:.85rem;
-font-weight:500;
-color:#5a2b44;
-transform-origin:50% 130px;
+.segment svg{
+width:40px;
+opacity:.9;
 }
 
+/* POINTER */
 .pointer{
 position:absolute;
 top:-18px;
 left:50%;
 transform:translateX(-50%);
-width:0;
-height:0;
+width:0;height:0;
 border-left:12px solid transparent;
 border-right:12px solid transparent;
 border-bottom:20px solid #c05a8c;
 }
 
 /* BUTTON */
-.spin-btn{
-margin-top:30px;
-padding:14px 42px;
+button{
+padding:14px 44px;
 border:none;
 border-radius:999px;
 background:linear-gradient(90deg,#ff8fc2,#f3b6cc);
 color:white;
 font-size:1rem;
-font-weight:500;
 cursor:pointer;
 box-shadow:0 14px 35px rgba(255,143,194,.45);
 }
 
-.spin-btn:disabled{
-opacity:.6;
-cursor:not-allowed;
-}
-
 /* RESULT */
-.result{
-margin-top:26px;
+#result{
+margin-top:24px;
 font-size:1.1rem;
-font-weight:500;
-min-height:28px;
 }
 
 /* STEPS */
 .steps{
 max-width:700px;
 margin:60px auto;
-font-size:.95rem;
 }
 
 .steps strong{
 display:block;
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
-.steps div{
-margin-bottom:6px;
-}
-
-/* FOOTER */
 footer{
-padding:50px 16px 70px;
+padding:50px 20px;
 font-size:.85rem;
 color:#8a4b68;
 }
@@ -152,25 +127,16 @@ color:#8a4b68;
 
 <header>
 <h1>Pandora PR Selection</h1>
-<p>Spin the wheel to see which Pandora item you’re eligible to receive</p>
+<p>Spin to reveal which Pandora piece you qualify for</p>
 </header>
 
-<div class="wheel-container">
+<div class="wheel-wrapper">
 <div class="pointer"></div>
-<div id="wheel">
-<div class="wheel-labels">
-<span style="transform:rotate(0deg)">Charm</span>
-<span style="transform:rotate(72deg)">Bracelet</span>
-<span style="transform:rotate(144deg)">Ring</span>
-<span style="transform:rotate(216deg)">Necklace</span>
-<span style="transform:rotate(288deg)">Charm Set</span>
-</div>
-</div>
+<div id="wheel"></div>
 </div>
 
-<button class="spin-btn" onclick="spin()">Spin the Wheel</button>
-
-<div class="result" id="result"></div>
+<button onclick="spin()">Spin the Wheel</button>
+<div id="result"></div>
 
 <div class="steps">
 <strong>Complete the steps below to be approved:</strong>
@@ -185,7 +151,6 @@ SSL Secured • Encrypted • Verified<br>
 </footer>
 
 <script>
-let spinning=false;
 const prizes=[
 "Pandora Charm",
 "Pandora Bracelet",
@@ -194,6 +159,8 @@ const prizes=[
 "Pandora Charm Set"
 ];
 
+let spinning=false;
+
 function spin(){
 if(spinning) return;
 spinning=true;
@@ -201,14 +168,13 @@ spinning=true;
 const wheel=document.getElementById("wheel");
 const result=document.getElementById("result");
 
-const spins=5;
 const index=Math.floor(Math.random()*prizes.length);
-const angle=360*spins + index*(360/prizes.length);
+const angle=360*5 + index*(360/prizes.length);
 
 wheel.style.transform=`rotate(${angle}deg)`;
 
 setTimeout(()=>{
-result.textContent="You landed on: " + prizes[index];
+result.textContent="You landed on: "+prizes[index];
 spinning=false;
 },4000);
 }
