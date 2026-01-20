@@ -11,25 +11,25 @@ body{
 margin:0;
 font-family:'Inter',sans-serif;
 background:linear-gradient(180deg,#ffe6f0,#fff0f7,#ffe6f0);
-color:#4b1632;
-text-align:center;
 overflow-x:hidden;
+text-align:center;
+color:#4b1632;
 position:relative;
 }
 
-/* Falling Butterflies */
+/* Floating Butterflies */
 .butterfly{
 position:absolute;
 width:15px;
 height:15px;
 background:radial-gradient(circle at 50% 50%, #ffc0e0, #ff80c0);
 border-radius:50%;
-opacity:0.3;
-animation:flying 20s linear infinite;
+opacity:0.25;
+animation:flying 25s linear infinite;
 }
 @keyframes flying{
-0%{transform:translateY(-10px) translateX(0);}
-100%{transform:translateY(100vh) translateX(20px);}
+0%{transform:translateY(-20px) translateX(0);}
+100%{transform:translateY(100vh) translateX(30px);}
 }
 
 /* Header */
@@ -49,17 +49,17 @@ color:#8b3d63;
 }
 
 /* Wheel container */
-.wheel-wrap{
+.wheel-container{
+margin:40px auto;
+width:360px;
+height:360px;
 position:relative;
-width:350px;
-height:350px;
-margin:40px auto 20px;
 }
 
 /* Pointer */
 .pointer{
 position:absolute;
-top:-18px;
+top:-15px;
 left:50%;
 transform:translateX(-50%);
 width:0;height:0;
@@ -69,55 +69,6 @@ border-bottom:30px solid #ff4f9a;
 filter:drop-shadow(0 6px 10px rgba(255,79,154,.6));
 z-index:10;
 }
-
-/* Wheel */
-#wheel{
-width:100%;
-height:100%;
-border-radius:50%;
-border:10px solid #ffd1e6;
-box-shadow:0 25px 60px rgba(0,0,0,.18), inset 0 0 40px rgba(255,255,255,.5);
-transition:transform 4.5s cubic-bezier(.17,.67,.32,1);
-position:relative;
-background: conic-gradient(
-#ffb6d5 0deg 72deg,
-#ffc6df 72deg 144deg,
-#ff9fc8 144deg 216deg,
-#ffd6e9 216deg 288deg,
-#ff8fc2 288deg 360deg
-);
-}
-
-/* Center glow */
-#wheel::after{
-content:"";
-position:absolute;
-inset:50%;
-transform:translate(-50%,-50%);
-width:70px;
-height:70px;
-border-radius:50%;
-background:radial-gradient(circle,#fff,#ff9fc8);
-box-shadow:0 0 25px rgba(255,159,200,.8);
-}
-
-/* Wheel Labels (Text inside slices) */
-.segment{
-position:absolute;
-width:50%;
-top:50%;
-left:50%;
-transform-origin:0 0;
-font-weight:600;
-font-size:0.95rem;
-color:#6b123d;
-text-align:center;
-}
-.s1{transform:rotate(36deg) translate(95px,-50%) rotate(-36deg);}
-.s2{transform:rotate(108deg) translate(95px,-50%) rotate(-108deg);}
-.s3{transform:rotate(180deg) translate(95px,-50%) rotate(-180deg);}
-.s4{transform:rotate(252deg) translate(95px,-50%) rotate(-252deg);}
-.s5{transform:rotate(324deg) translate(95px,-50%) rotate(-324deg);}
 
 /* Spin Button */
 .spin-btn{
@@ -179,15 +130,27 @@ color:#8b3d63;
 <p>Complete the steps below to see which luxury Pandora item you’ll receive</p>
 </header>
 
-<div class="wheel-wrap">
+<div class="wheel-container">
 <div class="pointer"></div>
-<div id="wheel">
-<div class="segment s1">Bracelet</div>
-<div class="segment s2">Necklace</div>
-<div class="segment s3">Ring</div>
-<div class="segment s4">Charm</div>
-<div class="segment s5">Charm Set</div>
-</div>
+<svg id="wheel" width="360" height="360" viewBox="0 0 360 360">
+<!-- 5 slices -->
+<g transform="translate(180,180)">
+<path d="M0,0 L180,0 A180,180 0 0,1 55.527,171.126 Z" fill="#ffb6d5"/>
+<text x="90" y="30" text-anchor="middle" transform="rotate(36)" font-size="14" fill="#6b123d" font-weight="600">Bracelet</text>
+
+<path d="M0,0 L55.527,171.126 A180,180 0 0,1 -145.527,105.253 Z" fill="#ffc6df"/>
+<text x="20" y="90" text-anchor="middle" transform="rotate(108)" font-size="14" fill="#6b123d" font-weight="600">Necklace</text>
+
+<path d="M0,0 L-145.527,105.253 A180,180 0 0,1 -145.527,-105.253 Z" fill="#ff9fc8"/>
+<text x="-90" y="50" text-anchor="middle" transform="rotate(180)" font-size="14" fill="#6b123d" font-weight="600">Ring</text>
+
+<path d="M0,0 L-145.527,-105.253 A180,180 0 0,1 55.527,-171.126 Z" fill="#ffd6e9"/>
+<text x="-20" y="-80" text-anchor="middle" transform="rotate(252)" font-size="14" fill="#6b123d" font-weight="600">Charm</text>
+
+<path d="M0,0 L55.527,-171.126 A180,180 0 0,1 180,0 Z" fill="#ff8fc2"/>
+<text x="90" y="-20" text-anchor="middle" transform="rotate(324)" font-size="14" fill="#6b123d" font-weight="600">Charm Set</text>
+</g>
+</svg>
 </div>
 
 <button class="spin-btn" onclick="spinWheel()">Spin the Wheel →</button>
@@ -236,6 +199,7 @@ const result=document.getElementById("result");
 const index=Math.floor(Math.random()*prizes.length);
 const rotation=360*6 + index*(360/prizes.length);
 
+wheel.style.transition="transform 4.5s cubic-bezier(.17,.67,.32,1)";
 wheel.style.transform=`rotate(${rotation}deg)`;
 
 setTimeout(()=>{
