@@ -3,43 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pandora Jewelry Spin</title>
-
+<title>Pandora Spin Wheel</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
+/* Body */
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#ffe6f0,#fff,#fde3ee);
+background:linear-gradient(180deg,#ffe6f0,#fff0f7,#ffe6f0);
 color:#4b1632;
 text-align:center;
 overflow-x:hidden;
+position:relative;
 }
 
-/* HEADER */
+/* Falling Butterflies */
+.butterfly{
+position:absolute;
+width:15px;
+height:15px;
+background:radial-gradient(circle at 50% 50%, #ffc0e0, #ff80c0);
+border-radius:50%;
+opacity:0.3;
+animation:flying 20s linear infinite;
+}
+@keyframes flying{
+0%{transform:translateY(-10px) translateX(0);}
+100%{transform:translateY(100vh) translateX(20px);}
+}
+
+/* Header */
 header{
-padding:70px 20px 20px;
+padding:50px 20px 10px;
 }
 header h1{
 font-family:'Playfair Display',serif;
 font-size:3rem;
 margin-bottom:10px;
+color:#ff4f9a;
+text-shadow:0 0 10px #ffb6d5,0 0 20px #ff82b7;
 }
 header p{
 font-size:1.05rem;
 color:#8b3d63;
 }
 
-/* WHEEL AREA */
+/* Wheel container */
 .wheel-wrap{
 position:relative;
-width:340px;
-height:340px;
+width:350px;
+height:350px;
 margin:40px auto 20px;
 }
 
-/* POINTER */
+/* Pointer */
 .pointer{
 position:absolute;
 top:-18px;
@@ -50,30 +67,28 @@ border-left:16px solid transparent;
 border-right:16px solid transparent;
 border-bottom:30px solid #ff4f9a;
 filter:drop-shadow(0 6px 10px rgba(255,79,154,.6));
+z-index:10;
 }
 
-/* WHEEL */
+/* Wheel */
 #wheel{
 width:100%;
 height:100%;
 border-radius:50%;
-background:
-conic-gradient(
+border:10px solid #ffd1e6;
+box-shadow:0 25px 60px rgba(0,0,0,.18), inset 0 0 40px rgba(255,255,255,.5);
+transition:transform 4.5s cubic-bezier(.17,.67,.32,1);
+position:relative;
+background: conic-gradient(
 #ffb6d5 0deg 72deg,
 #ffc6df 72deg 144deg,
 #ff9fc8 144deg 216deg,
 #ffd6e9 216deg 288deg,
 #ff8fc2 288deg 360deg
 );
-border:10px solid #ffd1e6;
-box-shadow:
-0 25px 60px rgba(0,0,0,.18),
-inset 0 0 40px rgba(255,255,255,.5);
-transition:transform 4.5s cubic-bezier(.17,.67,.32,1);
-position:relative;
 }
 
-/* CENTER GLOW */
+/* Center glow */
 #wheel::after{
 content:"";
 position:absolute;
@@ -86,7 +101,7 @@ background:radial-gradient(circle,#fff,#ff9fc8);
 box-shadow:0 0 25px rgba(255,159,200,.8);
 }
 
-/* LABELS INSIDE */
+/* Wheel Labels (Text inside slices) */
 .segment{
 position:absolute;
 width:50%;
@@ -96,15 +111,15 @@ transform-origin:0 0;
 font-weight:600;
 font-size:0.95rem;
 color:#6b123d;
+text-align:center;
 }
+.s1{transform:rotate(36deg) translate(95px,-50%) rotate(-36deg);}
+.s2{transform:rotate(108deg) translate(95px,-50%) rotate(-108deg);}
+.s3{transform:rotate(180deg) translate(95px,-50%) rotate(-180deg);}
+.s4{transform:rotate(252deg) translate(95px,-50%) rotate(-252deg);}
+.s5{transform:rotate(324deg) translate(95px,-50%) rotate(-324deg);}
 
-.s1{transform:rotate(36deg) translate(95px,-50%)}
-.s2{transform:rotate(108deg) translate(95px,-50%)}
-.s3{transform:rotate(180deg) translate(95px,-50%)}
-.s4{transform:rotate(252deg) translate(95px,-50%)}
-.s5{transform:rotate(324deg) translate(95px,-50%)}
-
-/* BUTTON */
+/* Spin Button */
 .spin-btn{
 margin-top:25px;
 padding:15px 50px;
@@ -115,20 +130,39 @@ font-weight:600;
 cursor:pointer;
 color:white;
 background:linear-gradient(90deg,#ff4f9a,#ff82b7);
-box-shadow:
-0 15px 40px rgba(255,79,154,.55),
-inset 0 0 10px rgba(255,255,255,.35);
+box-shadow:0 15px 40px rgba(255,79,154,.55), inset 0 0 10px rgba(255,255,255,.35);
 }
 
-/* RESULT */
+/* Result */
 #result{
 margin-top:22px;
-font-size:1.1rem;
-font-weight:600;
+font-size:1.2rem;
+font-weight:700;
 color:#7a1f4c;
 }
 
-/* FOOTER */
+/* FAQ */
+.faq-section{
+max-width:600px;
+margin:50px auto 30px;
+text-align:left;
+font-size:1rem;
+color:#4b1632;
+}
+.faq-section h2{
+text-align:center;
+font-size:1.8rem;
+margin-bottom:20px;
+color:#ff4f9a;
+}
+.faq-item{
+margin-bottom:15px;
+}
+.faq-item p{
+margin:5px 0 0 0;
+}
+
+/* Footer */
 footer{
 margin-top:60px;
 padding:30px 20px;
@@ -141,13 +175,12 @@ color:#8b3d63;
 <body>
 
 <header>
-<h1>Spin & Receive Pandora Jewelry</h1>
-<p>Try your luck and see which luxury Pandora piece you’ll receive</p>
+<h1>Spin & Win Pandora Jewelry</h1>
+<p>Complete the steps below to see which luxury Pandora item you’ll receive</p>
 </header>
 
 <div class="wheel-wrap">
 <div class="pointer"></div>
-
 <div id="wheel">
 <div class="segment s1">Bracelet</div>
 <div class="segment s2">Necklace</div>
@@ -157,9 +190,21 @@ color:#8b3d63;
 </div>
 </div>
 
-<button class="spin-btn" onclick="spinWheel()">Spin the Wheel</button>
-
+<button class="spin-btn" onclick="spinWheel()">Spin the Wheel →</button>
 <div id="result"></div>
+
+<!-- FAQ -->
+<div class="faq-section">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item">
+<p><strong>Will I get the gift instantly?</strong></p>
+<p>Yes! Once you spin and complete the steps, your Pandora item will be processed.</p>
+</div>
+<div class="faq-item">
+<p><strong>Is my info secure?</strong></p>
+<p>Absolutely, all information is encrypted and safe with us.</p>
+</div>
+</div>
 
 <footer>
 SSL Secured • Encrypted • Verified • Safe Checkout<br>
@@ -167,16 +212,20 @@ SSL Secured • Encrypted • Verified • Safe Checkout<br>
 </footer>
 
 <script>
-const prizes=[
-"Bracelet",
-"Necklace",
-"Ring",
-"Charm",
-"Charm Set"
-];
+// Generate butterflies
+for(let i=0;i<15;i++){
+const b=document.createElement("div");
+b.className="butterfly";
+b.style.left=Math.random()*100+"vw";
+b.style.animationDuration=15+Math.random()*10+"s";
+b.style.width=10+Math.random()*10+"px";
+b.style.height=b.style.width;
+document.body.appendChild(b);
+}
 
+// Spin wheel logic
+const prizes=["Bracelet","Necklace","Ring","Charm","Charm Set"];
 let spinning=false;
-
 function spinWheel(){
 if(spinning) return;
 spinning=true;
@@ -190,7 +239,7 @@ const rotation=360*6 + index*(360/prizes.length);
 wheel.style.transform=`rotate(${rotation}deg)`;
 
 setTimeout(()=>{
-result.textContent="Congratulations! You unlocked a Pandora "+prizes[index];
+result.textContent="🎉 Congratulations! You won a Pandora "+prizes[index]+"!";
 spinning=false;
 },4500);
 }
