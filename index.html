@@ -139,12 +139,12 @@ color:#8b3d63;
 <h1>Pandora PR Reveal Spin</h1>
 </header>
 
-<div class="wheel-container">
+<div class="wheel-container" id="wheelSection">
 <div class="pointer"></div>
 <canvas id="wheelCanvas" width="550" height="550"></canvas>
 </div>
 
-<button class="spin-btn" onclick="spinWheel()">Spin the Wheel →</button>
+<button class="spin-btn" id="spinBtn" onclick="spinWheel()">Spin the Wheel →</button>
 <div id="result"></div>
 
 <!-- FAQ -->
@@ -166,7 +166,7 @@ SSL Secured • Encrypted • Verified • Safe Checkout<br>
 </footer>
 
 <script>
-// Create falling flowers
+// Falling flowers
 for(let i=0;i<20;i++){
 const f=document.createElement("div");
 f.className="flower";
@@ -184,7 +184,7 @@ const canvas=document.getElementById("wheelCanvas");
 const ctx=canvas.getContext("2d");
 ctx.textBaseline="middle";
 ctx.textAlign="right";
-ctx.font="bold 18px Playfair Display";
+ctx.font="bold 16px Playfair Display";
 const segments=["Charm","Charm Set","Bracelet","Try Again Tomorrow","Necklace","Ring","Try Again in 2 Hours"];
 const colors=["#ffb6d5","#ffc6df","#ff9fc8","#ffd6e9","#ff8fc2","#ffa6d8","#ff6fa3"];
 const centerX=275,centerY=275,radius=240;
@@ -213,8 +213,8 @@ ctx.save();
 ctx.translate(centerX,centerY);
 ctx.rotate(start + segAngle/2);
 ctx.fillStyle="#6b123d";
-ctx.font="bold 20px Playfair Display";
-ctx.fillText(segments[i], radius - 20, 5);
+ctx.font="bold 16px Playfair Display";
+ctx.fillText(segments[i], radius - 40, 0); // inside the slice
 ctx.restore();
 }
 }
@@ -238,6 +238,10 @@ angleOffset=finalAngle*progress;
 drawWheel();
 if(progress<1) requestAnimationFrame(animate);
 else{
+// Hide wheel & spin button
+document.getElementById("wheelSection").style.display="none";
+document.getElementById("spinBtn").style.display="none";
+// Show result
 document.getElementById("result").textContent="Try Again in 2 Hours!";
 spinning=false;
 }
