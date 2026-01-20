@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spin the Wheel – PR Giveaway</title>
+
+<style>
+body {
+font-family: 'Poppins', sans-serif;
+background: linear-gradient(135deg, #f9c5d1, #fce4ec);
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+}
+
+.container {
+text-align: center;
+background: #fff;
+padding: 25px;
+border-radius: 20px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+max-width: 380px;
+width: 90%;
+}
+
+h1 {
+color: #d81b60;
+font-size: 22px;
+margin-bottom: 10px;
+}
+
+p {
+font-size: 13px;
+color: #777;
+}
+
+canvas {
+margin: 20px 0;
+}
+
+button {
+background: #d81b60;
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 30px;
+font-size: 16px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+button:hover {
+background: #ad1457;
+}
+
+.result {
+margin-top: 15px;
+font-size: 16px;
+color: #d81b60;
+font-weight: 600;
+}
+
+.apply {
+margin-top: 10px;
+display: none;
+}
+
+.apply a {
+color: white;
+text-decoration: none;
+}
+
+.disclaimer {
+font-size: 10px;
+color: #999;
+margin-top: 12px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Spin the Wheel ✨</h1>
+<p>See which PR gift you could receive</p>
+
+<canvas id="wheel" width="300" height="300"></canvas>
+
+<button onclick="spin()">SPIN</button>
+
+<div class="result" id="result"></div>
+
+<div class="apply" id="apply">
+<button style="margin-top:10px;">
+<a href="https://YOUR-PR-APPLICATION-LINK.com">Apply for PR</a>
+</button>
+</div>
+
+<div class="disclaimer">
+This is a promotional giveaway. Not officially affiliated with Pandora.
+</div>
+</div>
+
+<script>
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+
+const items = [
+"Bracelet",
+"Ring",
+"Necklace",
+"Charms",
+"Full PR Box"
+];
+
+const colors = [
+"#f8bbd0",
+"#f48fb1",
+"#f06292",
+"#ec407a",
+"#d81b60"
+];
+
+let startAngle = 0;
+const arc = (2 * Math.PI) / items.length;
+
+function drawWheel() {
+for (let i = 0; i < items.length; i++) {
+const angle = startAngle + i * arc;
+ctx.fillStyle = colors[i];
+ctx.beginPath();
+ctx.moveTo(150,150);
+ctx.arc(150,150,150,angle,angle+arc);
+ctx.fill();
+
+ctx.save();
+ctx.translate(150,150);
+ctx.rotate(angle + arc / 2);
+ctx.fillStyle = "#fff";
+ctx.font = "bold 14px Poppins";
+ctx.fillText(items[i], 40, 5);
+ctx.restore();
+}
+}
+
+drawWheel();
+
+function spin() {
+const spinAngle = Math.random() * 3000 + 2000;
+let angle = 0;
+
+const spinInterval = setInterval(() => {
+angle += 30;
+startAngle += (spinAngle * Math.PI / 180) / 100;
+ctx.clearRect(0,0,300,300);
+drawWheel();
+
+if (angle >= spinAngle) {
+clearInterval(spinInterval);
+const index = Math.floor(((2 * Math.PI - startAngle % (2 * Math.PI)) / arc)) % items.length;
+document.getElementById("result").innerText =
+"You landed on: " + items[index];
+document.getElementById("apply").style.display = "block";
+}
+}, 20);
+}
+</script>
+</body>
+</html>
