@@ -238,8 +238,7 @@ angleOffset=finalAngle*progress;
 drawWheel();
 if(progress<1) requestAnimationFrame(animate);
 else{
-// Hide wheel & spin button
-document.getElementById("wheelSection").style.display="none";
+// Hide spin button only
 document.getElementById("spinBtn").style.display="none";
 // Show result
 document.getElementById("result").textContent="Try Again in 2 Hours!";
